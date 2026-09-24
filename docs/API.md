@@ -9,7 +9,7 @@
 | PDP | `GET /products/{slug}` | 商品摘要、`routes`、`categoryUids`、`detailAvailable`、`detail`、`seriesId` |
 | PDP 路由 | `GET /products/by-path?path=...` | 以现有页面路径定位商品 |
 | 配置数据 | `GET /series/{id}` | 例如 `APEX`，返回 `getSeriesData` 业务对象 |
-| 首页 | `GET /pages/home` | `title,contentHtml,featured` |
+| 首页 | `GET /pages/home` | `title,contentHtml,featured`；每个精选商品含 `slug,name,path,smallImage` |
 | 服务状态 | `GET /actuator/health` | Spring Boot 健康状态 |
 
 例子：
