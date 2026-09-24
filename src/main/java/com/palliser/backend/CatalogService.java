@@ -125,7 +125,16 @@ public class CatalogService {
             List<Map<String,Object>> featured=new ArrayList<>();
             for (JsonNode slug:parse(row.get("featured_slugs_json").toString())) {
                 CatalogProduct p=products.selectById(slug.asText());
-                if(p!=null) featured.add(Map.of("slug",p.getSlug(),"name",p.getName()));
+                if(p!=null) {
+                    String path=jdbc.query("SELECT path FROM catalog_route WHERE product_slug=? ORDER BY path LIMIT 1",
+                        rs->rs.next()?rs.getString(1):null,p.getSlug());
+                    if(path!=null) {
+                        Map<String,Object> item=new LinkedHashMap<>();
+                        item.put("slug",p.getSlug());item.put("name",p.getName());
+                        item.put("path",path);item.put("smallImage",p.getSmallImage());
+                        featured.add(item);
+                    }
+                }
             }
             Map<String,Object> result=new LinkedHashMap<>();
             result.put("title",row.get("title"));result.put("contentHtml",row.get("content_html"));
