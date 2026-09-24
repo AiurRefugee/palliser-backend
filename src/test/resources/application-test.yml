@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:./data/palliser-test.sqlite
+    driver-class-name: org.sqlite.JDBC
+  sql:
+    init:
+      mode: always
+      platform: sqlite
