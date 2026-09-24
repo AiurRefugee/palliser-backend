@@ -21,6 +21,8 @@ class CatalogFlowTest {
     @Autowired JdbcTemplate jdbc;
 
     @Test void completeReadFlow() throws Exception {
+        mvc.perform(get("/actuator/health"))
+            .andExpect(status().isOk()).andExpect(jsonPath("$.status").value("UP"));
         mvc.perform(get("/api/v1/categories/tree"))
             .andExpect(status().isOk()).andExpect(jsonPath("$[0].path").value("/shop"));
         mvc.perform(get("/api/v1/shop/products").param("categoryUid","Mjc=").param("size","6"))

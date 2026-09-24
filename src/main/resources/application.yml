@@ -19,6 +19,9 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 management:
+  health:
+    redis:
+      enabled: false
   endpoints:
     web:
       exposure:

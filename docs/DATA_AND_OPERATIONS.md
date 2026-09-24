@@ -34,7 +34,7 @@ FROM api_error_log e WHERE e.request_id='填入响应头的值';
 
 ## Redis 和搜索
 
-首页、系列响应缓存 5 分钟，Key 前缀为 `palliser:v1:`；Redis 故障时回源数据库。修改内容后删除相关 Key 或等待过期。加入市场、语言或登录态时，应将这些维度放入缓存键。
+首页、系列响应缓存 5 分钟，Key 前缀为 `palliser:v1:`；Redis 故障时回源数据库。由于 Redis 是可选缓存，`/actuator/health` 不把 Redis 连接失败判为服务不可用；生产环境需单独监控 Redis。修改内容后删除相关 Key 或等待过期。加入市场、语言或登录态时，应将这些维度放入缓存键。
 
 以后可把 `catalog_product + catalog_route + catalog_category` 投影到 Elasticsearch，实现全文搜索、筛选和聚合；MySQL 仍是主数据源，`GET /shop/products` 接口不变。索引需要可靠的重建和同步机制。
 
